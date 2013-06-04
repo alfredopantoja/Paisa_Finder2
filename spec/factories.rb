@@ -9,5 +9,9 @@ FactoryGirl.define do
 			admin true
 		end	
 	end
+
+	factory :state do
+		name "guanajuato"
+	end	
 end	
 

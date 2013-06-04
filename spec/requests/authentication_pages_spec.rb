@@ -111,6 +111,35 @@ describe "Authentication" do
 				before { delete user_path(user) }
 				specify { response.should redirect_to(root_path) }
 			end
+
+			describe "in the states controller" do
+				let(:state) { FactoryGirl.create(:state) }
+
+				describe "visiting the States#index action" do
+					before { get states_path }
+					specify { response.should redirect_to(root_path) }
+				end
+
+				describe "visiting the States#new action" do
+					before { get new_state_path }
+					specify { response.should redirect_to(root_path) }
+				end
+
+				describe "submitting a POST request to the States#create action" do
+					before { post states_path }
+					specify { response.should redirect_to(root_path) }
+				end	
+				
+				describe "visiting the States#edit action" do
+					before { get edit_state_path(state) }
+					specify { response.should redirect_to(root_path) }
+				end
+
+				describe "submitting a PUT request to the States#create action" do
+					before { put state_path(state) }
+					specify { response.should redirect_to(root_path) }
+				end	
+			end	
 		end	
 	end	
 end

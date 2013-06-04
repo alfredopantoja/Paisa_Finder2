@@ -1,0 +1,15 @@
+<% provide(:title, 'Create new state') %>
+<h1>Create new state</h1>
+
+<div class="row">
+	<div class="span6 offset3">
+		<%= form_for(@state) do |f| %>
+			<%= render 'shared/error_messages', object: f.object %>
+		
+			<%= f.label :name %>
+			<%= f.text_field :name %>			
+
+			<%= f.submit "Create new state", class: "btn btn-large btn-primary" %>
+		<% end %>
+	</div>
+</div>	
