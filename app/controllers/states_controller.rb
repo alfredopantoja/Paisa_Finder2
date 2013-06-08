@@ -3,6 +3,7 @@ class StatesController < ApplicationController
 
 	def show
 		@state = State.find(params[:id])				
+		@municipalities = @state.municipalities.paginate(page: params[:page])
 	end
 
 	def index

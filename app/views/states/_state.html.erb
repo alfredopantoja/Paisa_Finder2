@@ -1,6 +1,8 @@
 <li>
-	<%= link_to state.name, state %> | 
-	<%= link_to "delete", state, method: :delete,
-																			 data: { confirm: "You sure?" } %> |
-	<%= link_to "edit", edit_state_path(state) %>
+<%= link_to state.name, state %> 
+	<% if signed_in? && @current_user.admin? %>
+		| <%= link_to "delete", state, method: :delete,
+																	 data: { confirm: "You sure?" } %> |
+		<%= link_to "edit", edit_state_path(state) %>
+	<% end %>	
 </li>

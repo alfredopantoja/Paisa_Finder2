@@ -13,5 +13,10 @@ FactoryGirl.define do
 	factory :state do
 		name "guanajuato"
 	end	
+
+	factory :municipality do
+		name "salvatierra"
+		state
+	end	
 end	
 

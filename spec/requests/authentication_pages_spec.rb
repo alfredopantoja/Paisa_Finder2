@@ -135,11 +135,41 @@ describe "Authentication" do
 					specify { response.should redirect_to(root_path) }
 				end
 
-				describe "submitting a PUT request to the States#create action" do
-					before { put state_path(state) }
+				describe "submitting to the States#destroy action" do
+					before { delete state_path(state) }
 					specify { response.should redirect_to(root_path) }
 				end	
 			end	
+			
+			describe "in the Municipalities controller" do
+				let(:state) { FactoryGirl.create(:state) }
+				let(:municipality) { FactoryGirl.create(:municipality, state: state) }
+
+				describe "visiting the Municipalities#new action" do
+					before { get new_state_municipality_path(state) }
+					specify { response.should redirect_to(root_path) }
+				end
+
+				describe "submitting a POST request to the Municipalities#create action" do
+					before { post state_municipalities_path(state) }
+					specify { response.should redirect_to(root_path) }
+				end	
+				
+				describe "visiting the Municipalities#edit action" do
+					before { get edit_state_municipality_path(state, municipality) }
+					specify { response.should redirect_to(root_path) }
+				end
+				
+				describe "submitting a PUT request to the Municipalities#create action" do
+					before { put state_municipality_path(state, municipality) }
+					specify { response.should redirect_to(root_path) }
+				end	
+				
+				describe "submitting to the Municipalities#destroy action" do
+					before { delete state_municipality_path(state, municipality) }
+					specify { response.should redirect_to(root_path) }
+				end	
+			end
 		end	
 	end	
 end

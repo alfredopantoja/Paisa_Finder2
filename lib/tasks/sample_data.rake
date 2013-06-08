@@ -15,5 +15,14 @@ namespace :db do
                    password: password,
                    password_confirmation: password)
     end
+		32.times do
+			name = Faker::Name.name
+			State.create!(name: name)
+		end	
+		states = State.all(limit: 6)
+		50.times do
+			name = Faker::Name.name				
+			states.each { |state| state.municipalities.create!(name: name) }
+		end	
   end
 end

@@ -5,5 +5,14 @@
 			<h1><%= @state.name %></h1>
 		</section>
 	</aside>
+	<div class="span8">
+		<% if @state.municipalities.any? %>
+			<h3>Municipalities (<%= @state.municipalities.count %>)</h3>
+			<ol class="municipalities">
+				<%= render @municipalities %>
+			</ol>
+			<%= will_paginate @municipalities %>
+		<% end %>
+	</div>		
 </div>	
 							

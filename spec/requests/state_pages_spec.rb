@@ -5,20 +5,42 @@ describe "State pages" do
 	subject { page }
 
 	describe "show" do
-		let!(:state) { FactoryGirl.create(:state) }
+		let(:state) { FactoryGirl.create(:state) }
+		let!(:m1) { FactoryGirl.create(:municipality, state: state, name: "Salva")}
+		let!(:m2) { FactoryGirl.create(:municipality, state: state, name: "Acambaro")}
 		before { visit state_path(state) }
 
 		it { should have_selector('h1',    text: state.name) }
 		it { should have_selector('title', text: state.name) }
 		it { should have_content(state.name) }			
+
+		describe "municipalities" do
+			it { should have_content(m1.name) }				
+			it { should have_content(m2.name) }				
+			it { should have_content(state.municipalities.count) }
+			it { should_not have_link('edit',   
+								  					    href: edit_state_municipality_path(state, m1)) }
+			it { should_not have_link('delete', 
+														    href: state_municipality_path(state, m1)) }
+		end	
 	end				
 
 	describe "as an admin user" do
 		let(:admin) { FactoryGirl.create(:admin) }
 		let!(:state1) { FactoryGirl.create(:state, name: "Tamaulipas") }
 		let!(:state2) { FactoryGirl.create(:state, name: "Chihuahua") }
+		let!(:m1) { FactoryGirl.create(:municipality, state: state1) }
 		before { sign_in admin }				
 		
+		describe "show" do
+			before { visit state_path(state1)}
+						
+			it { should have_link('edit',   
+								  					href: edit_state_municipality_path(state1, m1)) }
+			it { should have_link('delete', 
+														href: state_municipality_path(state1, m1)) }
+		end
+
 		describe "index" do
 			before { visit states_path }
 
