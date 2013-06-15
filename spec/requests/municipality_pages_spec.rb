@@ -6,12 +6,23 @@ describe "Municipality pages" do
 
 	describe "show" do
 		let(:state) { FactoryGirl.create(:state) }
-		let!(:m1) { FactoryGirl.create(:municipality, state: state, name: "Tarandacua")}
+		let!(:m1) { FactoryGirl.create(:municipality, state: state, 
+                                    name: "Tarandacua") }
+    let!(:t1) { FactoryGirl.create(:town, municipality: m1, name: "San Pedro") }
+    let!(:t2) { FactoryGirl.create(:town, municipality: m1, name: "San Toto") }
+
 		before { visit state_municipality_path(state, m1) }
 
 		it { should have_selector('h1',    text: m1.name) }
 		it { should have_selector('title', text: m1.name) }
-		it { should have_content(m1.name) }			
+
+    describe "towns" do
+      it { should have_content(t1.name) }
+      it { should have_content(t2.name) }
+      it { should have_content(m1.towns.count) }
+      it { should have_link(t1.name, href: municipality_town_path(m1, t1))} 
+      it { should have_link(t2.name, href: municipality_town_path(m1, t2))} 
+    end  
 	end				
 	
 	describe "as an admin user" do
@@ -24,7 +35,7 @@ describe "Municipality pages" do
 			before { visit new_state_municipality_path(state) }	
 
 			it { should have_selector('h1',   text: 'Create new municipality') }
-			it { should have_selector'title', text: full_title('Create new municipality')}
+			it { should have_selector('title', text: full_title('Create new municipality')) }
 
 			describe "with invalid information" do
 

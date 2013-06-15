@@ -18,5 +18,10 @@ FactoryGirl.define do
 		name "salvatierra"
 		state
 	end	
+
+  factory :town do
+    name "san pedro"
+    municipality
+  end  
 end	
 

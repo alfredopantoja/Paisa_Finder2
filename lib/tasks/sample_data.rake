@@ -24,5 +24,10 @@ namespace :db do
 			name = Faker::Name.name				
 			states.each { |state| state.municipalities.create!(name: name) }
 		end	
+    municipalities = Municipality.all(limit: 6)
+    50.times do
+      name = Faker::Name.name
+      municipalities.each { |muni| muni.towns.create!(name: name) }
+    end  
   end
 end

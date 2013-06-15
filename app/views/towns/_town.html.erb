@@ -1,0 +1,9 @@
+<li>
+  <span class="content"><%= link_to town.name, [@municipality, town] %></span>
+	<% if signed_in? && @current_user.admin? %>
+		<%= link_to "delete", [@municipality, town], 
+									        method: :delete,
+													data: { confirm: "You sure?" } %> |
+		<%= link_to "edit", edit_municipality_town_path(@municipality, town) %>
+	<% end %>	
+</li>  

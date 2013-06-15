@@ -170,6 +170,37 @@ describe "Authentication" do
 					specify { response.should redirect_to(root_path) }
 				end	
 			end
+
+      describe "in the towns controller" do
+				let(:state) { FactoryGirl.create(:state) }
+				let(:municipality) { FactoryGirl.create(:municipality, state: state) }
+        let(:town) { FactoryGirl.create(:town, municipality: municipality) }
+
+				describe "visiting the Towns#new action" do
+					before { get new_municipality_town_path(municipality) }
+					specify { response.should redirect_to(root_path) }
+				end
+
+				describe "submitting a POST request to the Towns#create action" do
+					before { post municipality_towns_path(municipality) }
+					specify { response.should redirect_to(root_path) }
+				end	
+				
+				describe "visiting the Towns#edit action" do
+					before { get edit_municipality_town_path(municipality, town) }
+					specify { response.should redirect_to(root_path) }
+				end
+				
+				describe "submitting a PUT request to the Towns#create action" do
+					before { put municipality_town_path(municipality, town) }
+					specify { response.should redirect_to(root_path) }
+				end	
+				
+				describe "submitting to the Towns#destroy action" do
+					before { delete municipality_town_path(municipality, town) }
+					specify { response.should redirect_to(root_path) }
+				end	
+      end  
 		end	
 	end	
 end

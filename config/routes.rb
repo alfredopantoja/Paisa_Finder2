@@ -2,8 +2,12 @@ PaisaFinder2::Application.routes.draw do
 	resources :users			
 	resources :sessions, only: [:new, :create, :destroy]
 	resources :states do
-		resources :municipalities, except: :index
+		resources :municipalities, except: :index 
 	end	
+
+  resources :municipalities do
+    resources :towns
+  end  
 
 	root to: 'static_pages#home'
 

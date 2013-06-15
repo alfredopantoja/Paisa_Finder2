@@ -1,9 +1,9 @@
 <li>
-	<span class="name"><%= municipality.name %></span>
+	<span class="name"><%= link_to municipality.name, [@state, municipality] %></span>
 	<% if signed_in? && @current_user.admin? %>
-		<%= link_to "delete", state_municipality_path(@state, municipality), 
-									          method: :delete,
-														data: { confirm: "You sure?" } %> |
+		<%= link_to "delete", [@state, municipality], 
+									        method: :delete,
+													data: { confirm: "You sure?" } %> |
 		<%= link_to "edit", edit_state_municipality_path(@state, municipality) %>
 	<% end %>	
 </li>	

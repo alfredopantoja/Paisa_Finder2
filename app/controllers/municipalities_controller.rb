@@ -8,6 +8,7 @@ class MunicipalitiesController < ApplicationController
 
 	def show
 		@municipality = @state.municipalities.find(params[:id])
+    @towns = @municipality.towns.paginate(page: params[:page])
 	end	
 
 	def new

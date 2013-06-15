@@ -8,6 +8,7 @@ describe Municipality do
 	subject { @municipality }
 
 	it { should respond_to(:name) }
+  it { should respond_to(:towns) }
 	it { should respond_to(:state_id) }	
 	it { should respond_to(:state) }
 	its(:state) { should == state }
@@ -31,4 +32,30 @@ describe Municipality do
 		before { @municipality.name = " " }
 		it { should_not be_valid }
 	end	
+
+  describe "town associations" do
+    before { @municipality.save }
+		let!(:c_town) do
+			FactoryGirl.create(:town, municipality: @municipality, name: "c")
+		end
+		let!(:a_town) do
+			FactoryGirl.create(:town, municipality: @municipality, name: "a")
+		end
+		let!(:b_town) do
+			FactoryGirl.create(:town, municipality: @municipality, name: "b")
+		end
+
+    it "should destroy associated towns" do
+      towns = @municipality.towns.dup
+      @municipality.destroy
+      towns.should_not be_empty
+      towns.each do |town|
+        Town.find_by_id(town.id).should be_nil
+      end
+    end
+
+    it "should have the right towns in the right order" do
+      @municipality.towns.should == [a_town, b_town, c_town]
+    end
+  end  
 end

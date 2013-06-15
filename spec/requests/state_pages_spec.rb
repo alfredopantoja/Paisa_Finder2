@@ -18,6 +18,8 @@ describe "State pages" do
 			it { should have_content(m1.name) }				
 			it { should have_content(m2.name) }				
 			it { should have_content(state.municipalities.count) }
+      it { should have_link(m1.name, href: state_municipality_path(state, m1)) }
+      it { should have_link(m2.name, href: state_municipality_path(state, m2)) }
 			it { should_not have_link('edit',   
 								  					    href: edit_state_municipality_path(state, m1)) }
 			it { should_not have_link('delete', 
