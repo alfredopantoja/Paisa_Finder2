@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130611003346) do
+ActiveRecord::Schema.define(:version => 20130615195355) do
 
   create_table "municipalities", :force => true do |t|
     t.string   "name"
@@ -21,6 +21,16 @@ ActiveRecord::Schema.define(:version => 20130611003346) do
   end
 
   add_index "municipalities", ["state_id"], :name => "index_municipalities_on_state_id"
+
+  create_table "posts", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "town_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "posts", ["town_id", "created_at"], :name => "index_posts_on_town_id_and_created_at"
 
   create_table "states", :force => true do |t|
     t.string   "name"

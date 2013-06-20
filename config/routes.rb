@@ -6,7 +6,11 @@ PaisaFinder2::Application.routes.draw do
 	end	
 
   resources :municipalities do
-    resources :towns
+    resources :towns, except: :index
+  end  
+
+  resources :towns do
+    resources :posts, except: :index
   end  
 
 	root to: 'static_pages#home'

@@ -5,6 +5,7 @@ class TownsController < ApplicationController
 
   def show 
     @town = @municipality.towns.find(params[:id])
+    @posts = @town.posts.paginate(page: params[:page])
   end
 
   def new

@@ -29,5 +29,11 @@ namespace :db do
       name = Faker::Name.name
       municipalities.each { |muni| muni.towns.create!(name: name) }
     end  
+    towns = Town.all(limit: 6)
+    50.times do
+      title = Faker::Lorem.sentence
+      body = Faker::Lorem.paragraphs
+      towns.each { |town| town.posts.create!(title: title, body: body) }
+    end  
   end
 end

@@ -23,5 +23,11 @@ FactoryGirl.define do
     name "san pedro"
     municipality
   end  
+
+  factory :post do
+    title "workers needed"
+    body "yo! I have the means of production for yo ass!"
+    town
+  end  
 end	
 

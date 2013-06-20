@@ -9,11 +9,27 @@ describe "Town pages" do
 		let!(:m1) { FactoryGirl.create(:municipality, state: state, 
                                     name: "Tarandacua") }
     let!(:t1) { FactoryGirl.create(:town, municipality: m1, name: "San Pedro") }
+    let!(:post1) do
+      FactoryGirl.create(:post, town: t1, title: "help needed", 
+                                          body: "help me out yo!")
+    end  
+    let!(:post2) do
+      FactoryGirl.create(:post, town: t1, title: "looking for a job", 
+                                          body: "anybody got a job yo!")
+    end  
 
 		before { visit municipality_town_path(m1, t1) }
 
 		it { should have_selector('h1',    text: t1.name) }
 		it { should have_selector('title', text: t1.name) }
+
+    describe "posts" do
+      it { should have_content(post1.title) }
+      it { should have_content(post2.title) }
+      it { should have_content(t1.posts.count) }
+      it { should have_link(post1.title, href: town_post_path(t1, post1)) } 
+      it { should have_link(post2.title, href: town_post_path(t1, post2)) } 
+    end  
   end  
 
 	describe "as an admin user" do

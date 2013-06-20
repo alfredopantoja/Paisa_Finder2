@@ -5,4 +5,13 @@
       <h1><%= @town.name %></h1>
     </section>  
   </aside>
+  <div class="span8">
+    <% if @town.posts.any? %>
+      <h3>Posts (<%= @town.posts.count %>)</h3>
+      <ol class="posts">
+        <%= render @posts %>
+      </ol>
+      <%= will_paginate @posts %>
+    <% end %>
+  </div>  
 </div>  

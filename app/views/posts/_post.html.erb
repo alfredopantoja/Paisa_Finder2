@@ -1,0 +1,12 @@
+<li>
+  <span class="title"><%= link_to post.title, [@town, post] %></span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(post.created_at) %> ago.
+  </span>
+	<% if signed_in? && @current_user.admin? %>
+		<%= link_to "delete", [@town, post], 
+									        method: :delete,
+													data: { confirm: "You sure?" } %> |
+		<%= link_to "edit", edit_town_post_path(@town, post) %>
+	<% end %>	
+</li>  

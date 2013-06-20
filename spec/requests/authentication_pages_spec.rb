@@ -160,7 +160,7 @@ describe "Authentication" do
 					specify { response.should redirect_to(root_path) }
 				end
 				
-				describe "submitting a PUT request to the Municipalities#create action" do
+				describe "submitting a PUT request to the Municipalities#update action" do
 					before { put state_municipality_path(state, municipality) }
 					specify { response.should redirect_to(root_path) }
 				end	
@@ -171,7 +171,7 @@ describe "Authentication" do
 				end	
 			end
 
-      describe "in the towns controller" do
+      describe "in the Towns controller" do
 				let(:state) { FactoryGirl.create(:state) }
 				let(:municipality) { FactoryGirl.create(:municipality, state: state) }
         let(:town) { FactoryGirl.create(:town, municipality: municipality) }
@@ -191,13 +191,43 @@ describe "Authentication" do
 					specify { response.should redirect_to(root_path) }
 				end
 				
-				describe "submitting a PUT request to the Towns#create action" do
+				describe "submitting a PUT request to the Towns#update action" do
 					before { put municipality_town_path(municipality, town) }
 					specify { response.should redirect_to(root_path) }
 				end	
 				
 				describe "submitting to the Towns#destroy action" do
 					before { delete municipality_town_path(municipality, town) }
+					specify { response.should redirect_to(root_path) }
+				end	
+      end  
+
+      describe "in the Posts controller" do
+        let(:town) { FactoryGirl.create(:town) }
+        let(:town_post) { FactoryGirl.create(:post, town: town) }
+
+				describe "visiting the Posts#new action" do
+					before { get new_town_post_path(town) }
+					specify { response.should redirect_to(root_path) }
+				end
+
+				describe "submitting a POST request to the Posts#create action" do
+          before { post town_posts_path(town) }
+					specify { response.should redirect_to(root_path) }
+				end	
+				
+				describe "visiting the Posts#edit action" do
+					before { get edit_town_post_path(town, town_post) }
+					specify { response.should redirect_to(root_path) }
+				end
+				
+				describe "submitting a PUT request to the Posts#update action" do
+					before { put town_post_path(town, town_post) }
+					specify { response.should redirect_to(root_path) }
+				end	
+
+				describe "submitting to the Towns#destroy action" do
+					before { delete town_post_path(town, town_post) }
 					specify { response.should redirect_to(root_path) }
 				end	
       end  
